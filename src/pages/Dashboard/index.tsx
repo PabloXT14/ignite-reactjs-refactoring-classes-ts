@@ -1,29 +1,74 @@
-import { Component } from 'react';
+import { Component, useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
-import api from '../../services/api';
-import Food from '../../components/Food';
+import { api } from '../../services/api';
+import { Food } from '../../components/Food';
 import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      foods: [],
-      editingFood: {},
-      modalOpen: false,
-      editModalOpen: false,
+interface FoodsFormat {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  available: boolean;
+  image: string;
+}
+
+// interface DashboardProps {
+//   foods: Array<{
+//     id: number;
+//     name: string;
+//     description: string;
+//     price: string;
+//     available: boolean;
+//     image: string;
+//   }>;
+//   editingFood: Object;
+//   modalOpen: boolean;
+//   editModalOpen: boolean;
+// }
+
+function Dashboard() {
+  const [foods, setFoods] = useState(async () => {
+    const response = await api.get<FoodsFormat[]>('/foods')
+    return response.data || [];
+  });
+  const [editingFood, setEditingFood] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     foods: [],
+  //     editingFood: {},
+  //     modalOpen: false,
+  //     editModalOpen: false,
+  //   }
+  // }
+
+  // async componentDidMount() {
+  //   const response = await api.get('/foods');
+
+  //   this.setState({ foods: response.data });
+  // }
+
+
+  async function handleAddFood(food: FoodsFormat) {
+    try {
+      const response = await api.post('/foods', {
+        ...food,
+        availabe: true
+      });
+
+      setFoods([...foods, response.data]);
+
+    } catch (err) {
+
     }
   }
-
-  async componentDidMount() {
-    const response = await api.get('/foods');
-
-    this.setState({ foods: response.data });
-  }
-
   handleAddFood = async food => {
     const { foods } = this.state;
 
