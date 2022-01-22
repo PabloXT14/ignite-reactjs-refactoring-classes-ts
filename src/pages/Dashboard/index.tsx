@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 import { api } from '../../services/api';
@@ -31,11 +31,8 @@ interface FoodsFormat {
 // }
 
 function Dashboard() {
-  const [foods, setFoods] = useState(async () => {
-    const response = await api.get<FoodsFormat[]>('/foods')
-    return response.data || [];
-  });
-  const [editingFood, setEditingFood] = useState({});
+  const [foods, setFoods] = useState<FoodsFormat[]>([]);
+  const [editingFood, setEditingFood] = useState<FoodsFormat>({} as FoodsFormat);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
@@ -55,8 +52,18 @@ function Dashboard() {
   //   this.setState({ foods: response.data });
   // }
 
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const response = await api.get('/foods');
 
-  async function handleAddFood(food: FoodsFormat) {
+      setFoods(response.data);
+    }
+    fetchMyAPI();
+  }, []);
+
+
+
+  const handleAddFood = async (food: FoodsFormat) => {
     try {
       const response = await api.post('/foods', {
         ...food,
@@ -66,101 +73,123 @@ function Dashboard() {
       setFoods([...foods, response.data]);
 
     } catch (err) {
-
-    }
-  }
-  handleAddFood = async food => {
-    const { foods } = this.state;
-
-    try {
-      const response = await api.post('/foods', {
-        ...food,
-        available: true,
-      });
-
-      this.setState({ foods: [...foods, response.data] });
-    } catch (err) {
       console.log(err);
     }
   }
+  // handleAddFood = async food => {
+  //   const { foods } = this.state;
 
-  handleUpdateFood = async food => {
-    const { foods, editingFood } = this.state;
+  //   try {
+  //     const response = await api.post('/foods', {
+  //       ...food,
+  //       available: true,
+  //     });
 
+  //     this.setState({ foods: [...foods, response.data] });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  const handleUpdateFood = async (food: FoodsFormat) => {
     try {
-      const foodUpdated = await api.put(
+      const foodUpdate = await api.put(
         `/foods/${editingFood.id}`,
-        { ...editingFood, ...food },
+        { ...editingFood, ...food }
       );
 
       const foodsUpdated = foods.map(f =>
-        f.id !== foodUpdated.data.id ? f : foodUpdated.data,
-      );
+        f.id !== foodUpdate.data.id ? f : foodUpdate.data);
 
-      this.setState({ foods: foodsUpdated });
+      setFoods(foodsUpdated);
+
     } catch (err) {
       console.log(err);
     }
   }
+  // handleUpdateFood = async food => {
+  //   const { foods, editingFood } = this.state;
 
-  handleDeleteFood = async id => {
-    const { foods } = this.state;
+  //   try {
+  //     const foodUpdated = await api.put(
+  //       `/foods/${editingFood.id}`,
+  //       { ...editingFood, ...food },
+  //     );
 
+  //     const foodsUpdated = foods.map(f =>
+  //       f.id !== foodUpdated.data.id ? f : foodUpdated.data,
+  //     );
+
+  //     this.setState({ foods: foodsUpdated });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  const handleDeleteFood = async (id: number) => {
     await api.delete(`/foods/${id}`);
-
     const foodsFiltered = foods.filter(food => food.id !== id);
+    setFoods(foodsFiltered);
+  }
+  // handleDeleteFood = async id => {
+  //   const { foods } = this.state;
 
-    this.setState({ foods: foodsFiltered });
+  //   await api.delete(`/foods/${id}`);
+
+  //   const foodsFiltered = foods.filter(food => food.id !== id);
+
+  //   this.setState({ foods: foodsFiltered });
+  // }
+
+  const toggleModal = () => {
+    // const { modalOpen } = this.state;
+    // this.setState({ modalOpen: !modalOpen });
+    setModalOpen(!modalOpen);
   }
 
-  toggleModal = () => {
-    const { modalOpen } = this.state;
+  const toggleEditModal = () => {
+    // const { editModalOpen } = this.state;
+    // this.setState({ editModalOpen: !editModalOpen });
 
-    this.setState({ modalOpen: !modalOpen });
+    setEditModalOpen(!editModalOpen);
   }
 
-  toggleEditModal = () => {
-    const { editModalOpen } = this.state;
+  const handleEditFood = (food: FoodsFormat) => {
+    // this.setState({ editingFood: food, editModalOpen: true });
 
-    this.setState({ editModalOpen: !editModalOpen });
+    setEditingFood(food);
+    setEditModalOpen(true);
   }
 
-  handleEditFood = food => {
-    this.setState({ editingFood: food, editModalOpen: true });
-  }
+  return (
+    <>
+      <Header openModal={toggleModal} />
+      <ModalAddFood
+        isOpen={modalOpen}
+        setIsOpen={toggleModal}
+        handleAddFood={handleAddFood}
+      />
+      <ModalEditFood
+        isOpen={editModalOpen}
+        setIsOpen={toggleEditModal}
+        editingFood={editingFood}
+        handleUpdateFood={handleUpdateFood}
+      />
 
-  render() {
-    const { modalOpen, editModalOpen, editingFood, foods } = this.state;
+      <FoodsContainer data-testid="foods-list">
+        {foods &&
+          foods.map(food => (
+            <Food
+              key={food.id}
+              food={food}
+              handleDelete={handleDeleteFood}
+              handleEditFood={handleEditFood}
+            />
+          ))}
+      </FoodsContainer>
+    </>
+  );
 
-    return (
-      <>
-        <Header openModal={this.toggleModal} />
-        <ModalAddFood
-          isOpen={modalOpen}
-          setIsOpen={this.toggleModal}
-          handleAddFood={this.handleAddFood}
-        />
-        <ModalEditFood
-          isOpen={editModalOpen}
-          setIsOpen={this.toggleEditModal}
-          editingFood={editingFood}
-          handleUpdateFood={this.handleUpdateFood}
-        />
-
-        <FoodsContainer data-testid="foods-list">
-          {foods &&
-            foods.map(food => (
-              <Food
-                key={food.id}
-                food={food}
-                handleDelete={this.handleDeleteFood}
-                handleEditFood={this.handleEditFood}
-              />
-            ))}
-        </FoodsContainer>
-      </>
-    );
-  }
 };
 
 export default Dashboard;
