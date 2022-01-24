@@ -8,6 +8,7 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   background: #f0f0f5;
   border-radius: 8px;
+  max-width: 400px;
 
   header {
     background: #ffb84d;
