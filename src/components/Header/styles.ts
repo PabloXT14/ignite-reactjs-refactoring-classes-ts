@@ -22,7 +22,7 @@ export const Container = styled.div`
           font-weight: 600;
           border-radius: 8px;
           border: 0;
-          background: #ff9e0a;
+          background: #FF9E0A;
           color: #fff;
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 

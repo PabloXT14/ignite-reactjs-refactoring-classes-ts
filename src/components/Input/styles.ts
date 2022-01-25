@@ -15,6 +15,8 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   font-size: 16px;
 
+  transition: all .3s ease;
+
   & + div {
     margin-top: 24px;
   }
@@ -30,20 +32,14 @@ export const Container = styled.div<ContainerProps>`
     props.isFocused &&
     css`
       color: #ff9000;
-      border-color: #ff9000;
-    `}
-
-  ${props =>
-    props.isFilled &&
-    css`
-      color: #ff9000;
+      border: 1px solid #ff9000;
     `}
 
   input {
     flex: 1;
     background: transparent;
     border: 0;
-    color: #b7b7cc;
+    color: ${props => props.isFilled ? '#FF9000' : '#b7b7cc'};
 
     &::placeholder {
       color: #b7b7cc;
@@ -52,5 +48,9 @@ export const Container = styled.div<ContainerProps>`
 
   svg {
     margin-right: 16px;
+  }
+
+  @media (max-width: 700px) {
+    padding: 14px 20px;
   }
 `;

@@ -1,4 +1,4 @@
-import { Component, ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 interface ModalProps {
@@ -23,20 +23,22 @@ export function Modal({ isOpen, setIsOpen, children }: ModalProps) {
       style={{
         content: {
           top: '50%',
-          left: '50%',
-          right: 'auto',
           bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
+          left: '0',
+          right: '0',
+          transform: 'translateY(-50%)',
+          margin: '15px auto',
+          padding: '0',
           background: '#F0F0F5',
           color: '#000000',
           borderRadius: '8px',
-          width: '736px',
+          maxWidth: '736px',
           border: 'none',
         },
         overlay: {
           backgroundColor: '#121214e6',
         },
+
       }}
     >
       {children}

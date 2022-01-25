@@ -148,4 +148,14 @@ export const Container = styled.div<ContainerProps>`
       }
     }
   }
+
+  @media (max-width: 700px) {
+    section.body {
+      padding: 15px;
+    }
+
+    section.footer {
+      padding: 20px 15px;
+    }
+  }
 `;
