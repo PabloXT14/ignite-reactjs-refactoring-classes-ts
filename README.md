@@ -9,14 +9,16 @@ Além, deste projeto ter sido feito como conclusão de um desafio do curso Ignit
 Caso goste do projeto marque a estrelinha⭐ para me ajudar 👍
 
 ## 📷 Demonstration
+### 💻 FullPage
 <p align="center">
-    <img alt="Pagina na Web" title="Pagina na Web" src="./github/Dem01-React-One-Page-Web.gif" height="425" />
-    <img alt="Pagina Responsiva" title="Pagina Responsiva" src="./github/Dem03cd-React-One-Page-Responsividade.gif" height="425" />
+    <img alt="Pagina na Web" title="Pagina na Web" src="./github/Dem01-GoRestaurant-Web.gif" height="425" />
+    <img alt="Pagina na Web" title="Pagina na Web" src="./github/Dem02-GoRestaurant-Web.gif" height="425" />
 </p>
 
-<!-- ## 🏍 Deploy
-* Link para acessar o deploy da aplicação: [React-One-Page🔗](https://react-one-page.vercel.app/)
-* **NOTE**: O formulário da página esta funcionando.  -->
+### 📱 Mobile
+<p align="center">
+    <img alt="Pagina Responsiva" title="Pagina Responsiva" src="./github/Dem03-GoRestaurant-Mobile.gif" height="425" />
+</p>
 
 ## 🚀 Technologies
 ✔ [ReactJS](https://reactjs.org/)
@@ -65,5 +67,4 @@ Caso goste do projeto marque a estrelinha⭐ para me ajudar 👍
         <img align="center" src="https://img.shields.io/badge/Gmail-FF0000?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail Pablo Alan" />
     </a>
 </p>
-
 
