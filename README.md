@@ -1,12 +1,9 @@
 # Aplicação GoRestaurant
 
-Esta é uma aplicação ReactJS que apresenta o painel de um restaurante fictício(GoRestaurant), onde você pode inserir, editar ou deletar as opções de pratos que o restaurante terá.
-
-O principal objetivo foi treinar e aprimorar habilidades com o framework do ReactJS(neste caso conversão de componentes React de `class components` para `function components`). 
-
-Além, deste projeto ter sido feito como conclusão de um desafio do curso Ignite da [Rocketseat](https://rocketseat.com.br/).
-
-Caso goste do projeto marque a estrelinha⭐ para me ajudar 👍
+* Esta é uma aplicação ReactJS que apresenta o painel de um restaurante fictício(GoRestaurant), onde você pode inserir, editar ou deletar as opções de pratos que o restaurante terá.
+* O principal objetivo foi treinar e aprimorar habilidades com o framework do ReactJS(neste caso conversão de componentes React de `class components` para `function components`). 
+* Além, deste projeto ter sido feito como conclusão de um desafio do curso Ignite da [Rocketseat](https://rocketseat.com.br/).
+* Caso goste do projeto marque a estrelinha⭐ para me ajudar 👍 e me siga para ver outros projetos que postar.
 
 ## 📷 Demonstration
 ### 💻 FullPage
@@ -44,7 +41,7 @@ Caso goste do projeto marque a estrelinha⭐ para me ajudar 👍
 ## ⚙ Settings
 - Segue os comandos para baixar e executar o projeto na sua máquina:
     * `git clone` + `URL do Projeto`: clonar este repositório
-    * `cd ignite-reactjs-refactoring-classes-ts`: acessa a pasta do projeto no terminal
+    * `cd Pasta_do_Projeto`: acessa a pasta do projeto no terminal
     * `yarn`: para baixar as dependências do projeto
     * `yarn server`: execute este comando em um terminal a parte, para executar/rodar o servidor fake.
     * `yarn start`: 
